@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     //キー入力用の文字列指定(InputManagerのHorizontalの入力を判定するための文字列)
     private string horizontal = "Horizontal";
 
+    //キー入力用の文字指定
+    private string jump = "Jump";
+
     //コンポーネントの取得用
     private Rigidbody2D rb;
 
@@ -18,6 +21,9 @@ public class PlayerController : MonoBehaviour
 
     //移動速度
     public float moveSpeed;
+
+    //ジャンプ・浮遊力
+    public float jumpPower;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +37,27 @@ public class PlayerController : MonoBehaviour
         scale = transform.localScale.x;
     }
 
+    private void Update()
+    {
+        //ジャンプ
+        //InputManagerのjumpの項目に登録されているキー入力を判定する
+        if (Input.GetButtonDown(jump))
+        {
+            Jump();
+        }
+    }
+
+    /// <summary>
+    /// ジャンプと空中浮遊
+    /// </summary>
+    private void Jump()
+    {
+        //キャラの位置を上方向へ移動させる(ジャンプ・浮遊)
+        rb.AddForce(transform.up * jumpPower);
+
+        //jump(Up + Mid)アニメーションを再生する
+        anim.SetTrigger("Jump");
+    }
 
     // Update is called once per frame
     void FixedUpdate()
