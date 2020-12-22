@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
     //地面に設置しているかどうかを判定するための変数
     public bool isGrounded;
 
+    //風船が何個あるか(配列)
+    public GameObject[] ballons;
+
     //画面外に出ないようにするための変数
     private float limitPosX = 9.5f;
     private float limitposY = 4.45f;
@@ -57,21 +60,32 @@ public class PlayerController : MonoBehaviour
         //SceneビューにPhisics2D.LinecastメソッドのLineを表示する
         Debug.DrawLine(transform.position + transform.up * 0.4f, transform.position - transform.up * 0.9f, Color.red, 1.0f);
 
-        //ジャンプ
-        //InputManagerのjumpの項目に登録されているキー入力を判定する
-        //jumpボタン(space)を押した場合
-        if (Input.GetButtonDown(jump))
+        //Ballons配列変数の最大要素数が0以上ならinspectorでBallons変数に登録されているなら
+        if (ballons.Length > 0)
         {
-            //Jumpメソッドを実行
-            Jump();
-        }
+            //ジャンプ
+            //InputManagerのjumpの項目に登録されているキー入力を判定する
+            //jumpボタン(space)を押した場合
+            if (Input.GetButtonDown(jump))
+            {
+                //Jumpメソッドを実行
+                Jump();
+            }
 
-        //接地していない(空中にいる)間で、落下中の場合
-        if (isGrounded == false && rb.velocity.y < 0.15f)
-        {
-            //落下アニメを繰り返す
-            anim.SetTrigger("Fall");
+            //接地していない(空中にいる)間で、落下中の場合
+            if (isGrounded == false && rb.velocity.y < 0.15f)
+            {
+                //落下アニメを繰り返す
+                anim.SetTrigger("Fall");
+            }
         }
+        else
+        {
+            Debug.Log("バルーンがない。ジャンプ不可");
+        }
+        
+
+        
 
         //Velocity.yの値が5.0ｆを超える場合(ジャンプを連続で押した場合)
         if (rb.velocity.y >5.0f)
