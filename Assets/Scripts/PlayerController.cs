@@ -32,6 +32,10 @@ public class PlayerController : MonoBehaviour
     //地面に設置しているかどうかを判定するための変数
     public bool isGrounded;
 
+    //画面外に出ないようにするための変数
+    private float limitPosX = 9.5f;
+    private float limitposY = 4.45f;
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -67,6 +71,13 @@ public class PlayerController : MonoBehaviour
         {
             //落下アニメを繰り返す
             anim.SetTrigger("Fall");
+        }
+
+        //Velocity.yの値が5.0ｆを超える場合(ジャンプを連続で押した場合)
+        if (rb.velocity.y >5.0f)
+        {
+            //Velocity.yの値に制限をかける(落下せずに上空での待機現象防止のため)
+            rb.velocity = new Vector2(rb.velocity.x, 5.0f);
         }
     }
 
@@ -148,5 +159,12 @@ public class PlayerController : MonoBehaviour
             //Idleアニメーションをtrueにして、待機アニメーションを再生する
             anim.SetBool("Idle", true);
         }
+
+        //現在の位置情報が移動範囲の制限範囲を超えていないか確認する。超えていたら制限範囲内に収める
+        float posX = Mathf.Clamp(transform.position.x, -limitPosX, limitPosX);
+        float posY = Mathf.Clamp(transform.position.y, -limitposY, limitposY);
+
+        //現在の位置を更新(制限範囲を超えた場合、ここで移動の範囲を制限する)
+        transform.position = new Vector2(posX, posY);
     }
 }
