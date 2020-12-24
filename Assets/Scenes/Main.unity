@@ -323,6 +323,8 @@ MonoBehaviour:
   ballonPrefab: {fileID: 8441730406190676138, guid: d4ca44e77414ec241a8dfd9dca9f38da, type: 3}
   generateTime: 2
   isGenerating: 0
+  isFirstGenerateBallon: 0
+  startChecker: {fileID: 1717458801}
 --- !u!1001 &250164691
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -706,6 +708,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1717458799}
+  - component: {fileID: 1717458800}
+  - component: {fileID: 1717458801}
   m_Layer: 8
   m_Name: Ground_Start
   m_TagString: Untagged
@@ -731,6 +735,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1717458800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717458798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f5d5281954a0c4797d675ae982dd09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0
+--- !u!114 &1717458801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717458798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b1c00ad055246d43b76258e86320115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1874041070
 GameObject:
   m_ObjectHideFlags: 0
