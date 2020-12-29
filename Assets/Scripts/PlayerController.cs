@@ -60,6 +60,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private StartChecker startChecker;
+
+    public float knockbackPower;
  
     // Start is called before the first frame update
     void Start()
@@ -249,11 +251,14 @@ public class PlayerController : MonoBehaviour
         {
             //1つめ目のバルーンを生成して、１番目の配列へ代入
             ballons[0] = Instantiate(ballonPrefab, ballonTrans[0]);
+
+            ballons[0].GetComponent<Ballon>().SetUpBallon(this);
         }
         else
         {
             //2つ目のバルーンを生成して、２番目の配列へ代入
             ballons[1] = Instantiate(ballonPrefab, ballonTrans[1]);
+            ballons[1].GetComponent<Ballon>().SetUpBallon(this);
         }
 
         //生成時間分待機
@@ -261,5 +266,34 @@ public class PlayerController : MonoBehaviour
 
         //生成中状態終了。再度生成できるようにする
         isGenerating = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        //接触したものがコライダーを持つTagがEnemyなら
+        if (col.gameObject.tag == "Enemy")
+        {
+            //キャラと敵の位置から距離と方向を計算して、正規化処理を行い、direction変数へ代入
+            Vector3 direction = (transform.position - col.transform.position).normalized;
+
+            //敵の反対側にキャラを吹き飛ばす
+            transform.position += direction * knockbackPower;
+        }
+    }
+    /// <summary>
+    /// バルーン破壊
+    /// </summary>
+    public void DestroyBallon()
+    {
+        //TODO 後ほど、バルーンが破壊される際に「割れた」ようにみえるアニメ演出を追加する
+
+        if (ballons[1] != null)
+        {
+            Destroy(ballons[1]);
+        }
+        else if (ballons[0] != null)
+        {
+            Destroy(ballons[0]);
+        }
     }
 }

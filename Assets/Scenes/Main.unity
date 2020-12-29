@@ -325,6 +325,7 @@ MonoBehaviour:
   isGenerating: 0
   isFirstGenerateBallon: 0
   startChecker: {fileID: 1717458801}
+  knockbackPower: 1
 --- !u!1001 &250164691
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -472,7 +473,7 @@ GameObject:
   - component: {fileID: 467900656}
   m_Layer: 0
   m_Name: Eagle
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
