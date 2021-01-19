@@ -62,6 +62,8 @@ public class PlayerController : MonoBehaviour
     private StartChecker startChecker;
 
     public float knockbackPower;
+
+    public int coinPoint;
  
     // Start is called before the first frame update
     void Start()
@@ -294,6 +296,22 @@ public class PlayerController : MonoBehaviour
         else if (ballons[0] != null)
         {
             Destroy(ballons[0]);
+        }
+    }
+
+    //IsTriggerがオンのコライダーを持つゲームオブジェクトを通過した場合に呼び出す
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        //通過したコライダーを持つゲームオブジェクトのTagがCoinの場合
+        if (col.gameObject.tag == "Coin")
+        {
+            //通過したコインのゲームオブジェクトの持つCoinスクリプトを取得し
+            //pointの変数の値をキャラの持つcoinPoint変数に加算
+            coinPoint += col.gameObject.GetComponent<Coin>().point;
+
+            //通過したコインのゲームオブジェクトを破壊する
+            Destroy(col.gameObject);
+
         }
     }
 }
